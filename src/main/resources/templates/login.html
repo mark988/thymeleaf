@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title th:text="#{security_login_title}">登录</title>
+</head>
+<body layout:decorate="~{../layouts/default}">
+<section layout:fragment="contents">
+    <div th:if="${param.login_error != null or param.error != null}" class="errors">
+        <p>
+            <span th:text="#{security_login_unsuccessful}"></span>
+            <span th:text="${SPRING_SECURITY_LAST_EXCEPTION?.message}"></span>.
+        </p>
+    </div>
+    <div th:if="${param.login_error == null}">
+        <p style="margin-bottom: 20px;" th:text="#{security_login_message}"></p>
+    </div>
+    <form name="f" th:action="@{/login}" id="auth_again" method="post" class="login_form_control">
+        <input type="hidden" value="true" name="remember-me" />
+        <div>
+            <label for="j_username">E-mail:</label>
+            <input id="j_username" type="text" name="username" style="width:150px" />
+            <!-- 可用 th:attr="data-prompt-message=#{security_login_form_name_message}" 实现提示 -->
+        </div>
+        <br />
+        <div>
+            <label for="j_password" th:text="#{security_login_form_password}"></label>
+            <input id="j_password" type="password" name="password" style="width:150px" />
+            <!-- 可用 th:attr="data-prompt-message=#{security_login_form_password_message}" 实现提示 -->
+            <br clear="all" />
+        </div>
+        <br />
+        <div class="submit_div">
+            <input id="proceed" type="submit" th:value="#{button_submit}" value="登录" style="margin: 0; width: 200px;" />
+        </div>
+    </form>
+    <div class="mantions">
+        <a class="fleft" th:href="@{/users/remind}" th:text="#{login.pass_remind}"></a>
+        <a class="fright" th:href="@{/users?form}" th:text="#{login.registration}"></a>
+    </div>
+</section>
+</body>
+</html>

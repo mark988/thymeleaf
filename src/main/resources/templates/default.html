@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <title th:text="#{application_name}">应用名称</title>
+    <!-- 这里可引入静态资源和脚本 -->
+</head>
+<body class="soria spring">
+<div id="mainContainer">
+    <div class="header">
+        <div class="header_top">
+            <div class="logo">
+                <div><a th:href="@{/}">Home</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="mainContent">
+        <div class="left_content" style="float: left;width: 250px;">
+            <!-- 这里可根据登录状态显示不同内容，需配合Spring Security和Thymeleaf实现 -->
+            <div th:if="${#authentication == null}">
+                <!-- 未登录显示登录/注册等 -->
+            </div>
+            <div th:if="${#authentication != null}">
+                <!-- 已登录显示用户菜单等 -->
+            </div>
+        </div>
+        <div class="central_content" style="float: left; width: 80% !important;">
+            <section layout:fragment="contents">
+                <!-- 子页面内容插槽 -->
+            </section>
+        </div>
+    </div>
+</div>
+<div class="clear">&nbsp;</div>
+<div id="footer">
+    <div class="f_left">&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span></div>
+    <div class="f_call_back">
+        <a th:href="@{/mailus}" th:text="#{default.callback}"></a>
+    </div>
+</div>
+</body>
+</html>
